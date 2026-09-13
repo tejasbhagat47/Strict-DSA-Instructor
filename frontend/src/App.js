@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Send, GraduationCap, User, Bot } from 'lucide-react';
+import { Send, User, Bot } from 'lucide-react';
 
 function App() {
   const [messages, setMessages] = useState([
