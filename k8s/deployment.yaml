@@ -1,0 +1,60 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: strict-dsa-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: strict-dsa-backend
+  template:
+    metadata:
+      labels:
+        app: strict-dsa-backend
+    spec:
+      containers:
+        - name: backend
+          image: tejas4760/strict-dsa-backend:1.0.0
+          ports:
+            - containerPort: 8000
+          env:
+            - name: GEMINI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: strict-dsa-secrets
+                  key: GEMINI_API_KEY
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: strict-dsa-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: strict-dsa-frontend
+  template:
+    metadata:
+      labels:
+        app: strict-dsa-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: tejas4760/strict-dsa-frontend:1.0.0
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 200m
+              memory: 128Mi

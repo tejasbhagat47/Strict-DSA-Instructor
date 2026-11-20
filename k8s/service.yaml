@@ -1,0 +1,26 @@
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: strict-dsa-backend
+spec:
+  type: ClusterIP
+  selector:
+    app: strict-dsa-backend
+  ports:
+    - port: 8000
+      targetPort: 8000
+      protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: strict-dsa-frontend
+spec:
+  type: ClusterIP
+  selector:
+    app: strict-dsa-frontend
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
